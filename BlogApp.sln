@@ -7,9 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{31D4B804-897
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6EE887C5-4A75-4B06-9B3F-FDA1CF57967C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.BusinessRules", "BlogApp.BusinessRules\BlogApp.BusinessRules.csproj", "{A8F3FC1A-6DB1-4B46-9967-09591B121F6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.BusinessRules", "src\BlogApp.BusinessRules\BlogApp.BusinessRules.csproj", "{A8F3FC1A-6DB1-4B46-9967-09591B121F6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.BusinessRulesTests", "BlogApp.BusinessRulesTests\BlogApp.BusinessRulesTests.csproj", "{8F18B94F-E516-4E35-A572-632D916BF3D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.BusinessRulesTests", "test\BlogApp.BusinessRulesTests\BlogApp.BusinessRulesTests.csproj", "{8F18B94F-E516-4E35-A572-632D916BF3D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

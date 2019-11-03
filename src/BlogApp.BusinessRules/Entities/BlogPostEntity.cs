@@ -3,7 +3,7 @@ using BlogApp.BusinessRules.Procedures;
 
 namespace BlogApp.BusinessRules.Entities
 {
-    public class BlogPostEntity
+    public sealed class BlogPostEntity
     {
         private readonly IBlogPostProcedures _procedures;
 

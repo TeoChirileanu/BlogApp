@@ -4,6 +4,6 @@ namespace BlogApp.UseCases.Adapters
 {
     public interface IDataProcessor
     {
-        dynamic ProcessData(BlogPostData data);
+        BlogPostData ProcessData(BlogPostData data);
     }
 }

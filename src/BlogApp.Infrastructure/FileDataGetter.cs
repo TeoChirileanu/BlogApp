@@ -1,6 +1,5 @@
-﻿using System;
-using System.IO;
-using BlogApp.BusinessRules.Data;
+﻿using BlogApp.BusinessRules.Data;
+using BlogApp.Common;
 using BlogApp.UseCases.Adapters;
 
 namespace BlogApp.Infrastructure
@@ -16,15 +15,11 @@ namespace BlogApp.Infrastructure
 
         public BlogPostData GetData()
         {
-            var lines = File.ReadAllLines(_filePath);
-            if (lines.Length < 2) return null;
+            var lines = Helpers.ReadLines(_filePath);
+            if (lines.Length != 2) return null;
             var title = lines[0];
             var content = lines[1];
-            var data = new BlogPostData
-            {
-                Title = title,
-                Content = content
-            };
+            var data = new BlogPostData(title, content);
             return data;
         }
     }

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\BlogApp.Common\BlogApp.Common.csproj" />
     <ProjectReference Include="..\..\src\BlogApp.Infrastructure\BlogApp.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\BlogApp.UseCases\BlogApp.UseCases.csproj" />
   </ItemGroup>

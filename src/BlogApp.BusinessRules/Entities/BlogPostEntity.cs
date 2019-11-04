@@ -7,13 +7,25 @@ namespace BlogApp.BusinessRules.Entities
     {
         private readonly IBlogPostProcedures _procedures;
 
-        public BlogPostEntity(IBlogPostProcedures procedures) => _procedures = procedures;
+        public BlogPostEntity(IBlogPostProcedures procedures)
+        {
+            _procedures = procedures;
+        }
 
 
-        public BlogPostData Add(BlogPostData data) => _procedures.Add(data);
+        public BlogPostData Add(BlogPostData data)
+        {
+            return _procedures.Add(data);
+        }
 
-        public BlogPostData Edit(BlogPostData data) => _procedures.Edit(data);
+        public BlogPostData Edit(BlogPostData data)
+        {
+            return _procedures.Edit(data);
+        }
 
-        public bool Remove(BlogPostData data) => _procedures.Remove(data);
+        public bool Remove(BlogPostData data)
+        {
+            return _procedures.Remove(data);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using BlogApp.BusinessRules.Data;
 using BlogApp.BusinessRules.Entities;
 using BlogApp.BusinessRules.Procedures;
+using BlogApp.Common;
 using NFluent;
 using NSubstitute;
 using NUnit.Framework;
@@ -9,8 +10,8 @@ namespace BlogApp.BusinessRulesTests
 {
     public class BlogPostEntityBehaviorTests
     {
+        private readonly BlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
         private readonly IBlogPostProcedures _procedures = Substitute.For<IBlogPostProcedures>();
-        private readonly BlogPostData _data = new BlogPostData();
 
         [SetUp]
         public void SetUp()

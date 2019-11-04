@@ -1,5 +1,4 @@
-﻿using System;
-using BlogApp.BusinessRules.Data;
+﻿using BlogApp.BusinessRules.Data;
 
 namespace BlogApp.UseCases
 {

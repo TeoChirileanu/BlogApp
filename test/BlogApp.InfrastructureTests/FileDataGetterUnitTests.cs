@@ -1,5 +1,5 @@
-using System;
 using System.IO;
+using BlogApp.Common;
 using BlogApp.Infrastructure;
 using BlogApp.UseCases.Adapters;
 using NFluent;
@@ -9,14 +9,14 @@ namespace BlogApp.InfrastructureTests
 {
     public class FileDataGetterUnitTests
     {
-        private const string TestFile = "test.txt";
-        private const string Title = "<title>";
-        private const string Content = "<content>";
+        private const string InputFile = Constants.InputFile;
+        private const string Title = Constants.Title;
+        private const string Content = Constants.Content;
 
         [SetUp]
         public void Setup()
         {
-            using var writer = new StreamWriter(TestFile);
+            using var writer = new StreamWriter(InputFile);
             writer.WriteLine(Title);
             writer.WriteLine(Content);
         }
@@ -25,7 +25,7 @@ namespace BlogApp.InfrastructureTests
         public void ShouldGetDataFromFile()
         {
             // Arrange
-            IDataGetter dataGetter = new FileDataGetter(TestFile);
+            IDataGetter dataGetter = new FileDataGetter(InputFile);
 
             // Act
             var data = dataGetter.GetData();
@@ -39,7 +39,7 @@ namespace BlogApp.InfrastructureTests
         [TearDown]
         public void TearDown()
         {
-            File.Delete(TestFile);
+            Helpers.DeleteFile(InputFile);
         }
     }
 }

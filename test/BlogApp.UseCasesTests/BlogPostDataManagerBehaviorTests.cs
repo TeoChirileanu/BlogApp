@@ -1,4 +1,5 @@
 using BlogApp.BusinessRules.Data;
+using BlogApp.Common;
 using BlogApp.UseCases;
 using BlogApp.UseCases.Adapters;
 using NFluent;
@@ -9,17 +10,17 @@ namespace BlogApp.UseCasesTests
 {
     public class BlogPostDataManagerBehaviorTests
     {
-        private readonly IDataGetter _dataGetter = Substitute.For<IDataGetter>();
-        private readonly IDataProcessor _dataProcessor = Substitute.For<IDataProcessor>();
-        private readonly IDataPersister _dataPersister = Substitute.For<IDataPersister>();
+        private readonly BlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
         private readonly IDataDisplayer _dataDisplayer = Substitute.For<IDataDisplayer>();
-        private static readonly BlogPostData Data = new BlogPostData();
+        private readonly IDataGetter _dataGetter = Substitute.For<IDataGetter>();
+        private readonly IDataPersister _dataPersister = Substitute.For<IDataPersister>();
+        private readonly IDataProcessor _dataProcessor = Substitute.For<IDataProcessor>();
 
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-            _dataGetter.GetData().Returns(Data);
-            _dataProcessor.ProcessData(Data).Returns(new object());
+            _dataGetter.GetData().Returns(_data);
+            _dataProcessor.ProcessData(_data).Returns(new object());
         }
 
         [Test]
@@ -32,7 +33,7 @@ namespace BlogApp.UseCasesTests
             var data = dataManager.GetData();
 
             // Assert
-            Check.That(data).IsEqualTo(Data);
+            Check.That(data).IsEqualTo(_data);
             _dataGetter.Received().GetData();
         }
 
@@ -43,11 +44,11 @@ namespace BlogApp.UseCasesTests
             var dataManager = GetDataManager();
 
             // Act
-            var processedData = dataManager.ProcessData(Data);
+            var processedData = dataManager.ProcessData(_data);
 
             // Assert
             Check.That(processedData).IsNotNull();
-            _dataProcessor.Received().ProcessData(Data);
+            _dataProcessor.Received().ProcessData(_data);
         }
 
         [Test]
@@ -57,10 +58,10 @@ namespace BlogApp.UseCasesTests
             var dataManager = GetDataManager();
 
             // Act
-            dataManager.PersistData(Data);
+            dataManager.PersistData(_data);
 
             // Assert
-            _dataPersister.Received().PersistData(Data);
+            _dataPersister.Received().PersistData(_data);
         }
 
         [Test]
@@ -70,10 +71,10 @@ namespace BlogApp.UseCasesTests
             var dataManager = GetDataManager();
 
             // Act
-            dataManager.DisplayData(Data);
+            dataManager.DisplayData(_data);
 
             // Assert
-            _dataDisplayer.Received().DisplayData(Data);
+            _dataDisplayer.Received().DisplayData(_data);
         }
 
         private IBlogPostDataManager GetDataManager()

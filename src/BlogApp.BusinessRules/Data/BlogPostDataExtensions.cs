@@ -2,7 +2,7 @@
 {
     public static class BlogPostDataExtensions
     {
-        public static string AsString(this BlogPostData data)
+        public static string AsString(this IBlogPostData data)
         {
             return $"{data?.Title}\n{data?.Content}";
         }

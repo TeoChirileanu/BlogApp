@@ -14,7 +14,7 @@ namespace BlogApp.Infrastructure
             _filePath = filePath;
         }
 
-        public void DisplayData(BlogPostData data)
+        public void DisplayData(IBlogPostData data)
         {
             var dataAsString = data.AsString();
             var dataAsLines = dataAsString.Split('\n');

@@ -4,8 +4,8 @@ namespace BlogApp.BusinessRules.Procedures
 {
     public interface IBlogPostProcedures
     {
-        BlogPostData Add(BlogPostData data);
-        BlogPostData Edit(BlogPostData data);
-        bool Remove(BlogPostData data);
+        BlogPostData Add(IBlogPostData data);
+        BlogPostData Edit(IBlogPostData data);
+        bool Remove(IBlogPostData data);
     }
 }

@@ -4,7 +4,7 @@ namespace BlogApp.UseCases.Adapters
 {
     public interface IDataPersister
     {
-        void PersistData(BlogPostData data);
-        BlogPostData GetData(string title);
+        void PersistData(IBlogPostData data);
+        IBlogPostData GetData(string title);
     }
 }

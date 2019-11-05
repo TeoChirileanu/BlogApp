@@ -24,17 +24,17 @@ namespace BlogApp.UseCases
             return _dataGetter.GetData();
         }
 
-        public object ProcessData(BlogPostData data)
+        public object ProcessData(IBlogPostData data)
         {
             return _dataProcessor.ProcessData(data);
         }
 
-        public void PersistData(BlogPostData data)
+        public void PersistData(IBlogPostData data)
         {
             _dataPersister.PersistData(data);
         }
 
-        public void DisplayData(BlogPostData data)
+        public void DisplayData(IBlogPostData data)
         {
             _dataDisplayer.DisplayData(data);
         }

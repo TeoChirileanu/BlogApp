@@ -11,16 +11,20 @@ namespace BlogApp.UseCasesTests
     public class BlogPostDataManagerBehaviorTests
     {
         private readonly BlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
-        private readonly IDataDisplayer _dataDisplayer = Substitute.For<IDataDisplayer>();
-        private readonly IDataGetter _dataGetter = Substitute.For<IDataGetter>();
-        private readonly IDataPersister _dataPersister = Substitute.For<IDataPersister>();
-        private readonly IDataProcessor _dataProcessor = Substitute.For<IDataProcessor>();
+        private IDataDisplayer _dataDisplayer;
+        private IDataGetter _dataGetter;
+        private IDataPersister _dataPersister;
+        private IDataProcessor _dataProcessor;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
+            _dataGetter = Substitute.For<IDataGetter>();
+            _dataPersister = Substitute.For<IDataPersister>();
+            _dataProcessor = Substitute.For<IDataProcessor>();
+            _dataDisplayer = Substitute.For<IDataDisplayer>();
             _dataGetter.GetData().Returns(_data);
-            _dataProcessor.ProcessData(_data).Returns(new object());
+            _dataProcessor.ProcessData(_data).Returns(_data);
         }
 
         [Test]

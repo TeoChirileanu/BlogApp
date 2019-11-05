@@ -5,8 +5,8 @@ namespace BlogApp.UseCases
     public interface IBlogPostDataManager
     {
         BlogPostData GetData();
-        object ProcessData(BlogPostData data);
-        void PersistData(BlogPostData data);
-        void DisplayData(BlogPostData data);
+        object ProcessData(IBlogPostData data);
+        void PersistData(IBlogPostData data);
+        void DisplayData(IBlogPostData data);
     }
 }

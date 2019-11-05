@@ -16,7 +16,7 @@ namespace BlogApp.InfrastructureTests
         public void ShouldPersistData()
         {
             // Arrange
-            var blogPostData = new Collection<BlogPostData>();
+            var blogPostData = new Collection<IBlogPostData>();
             IDataPersister dataPersister = new InMemoryDataPersister(blogPostData);
 
             // Act
@@ -31,7 +31,7 @@ namespace BlogApp.InfrastructureTests
         public void ShouldGetData()
         {
             // Arrange
-            var blogPostData = new Collection<BlogPostData> {_data};
+            var blogPostData = new Collection<IBlogPostData> {_data};
             IDataPersister dataPersister = new InMemoryDataPersister(blogPostData);
 
             // Act

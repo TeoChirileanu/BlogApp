@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.18.0" />
+    <PackageReference Include="Microsoft.Azure.Storage.File" Version="11.1.0" />
   </ItemGroup>
 
   <ItemGroup>

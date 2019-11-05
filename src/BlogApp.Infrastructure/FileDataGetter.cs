@@ -13,7 +13,7 @@ namespace BlogApp.Infrastructure
             _filePath = filePath;
         }
 
-        public BlogPostData GetData()
+        public IBlogPostData GetData()
         {
             var lines = Helpers.ReadLines(_filePath);
             if (lines.Length != 2) return null;

@@ -10,7 +10,7 @@ namespace BlogApp.InfrastructureTests
 {
     public class InMemoryDataPersisterTests
     {
-        private readonly BlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
+        private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
 
         [Test]
         public void ShouldPersistData()

@@ -13,12 +13,12 @@ namespace BlogApp.BusinessRules.Entities
         }
 
 
-        public BlogPostData Add(IBlogPostData data)
+        public IBlogPostData Add(IBlogPostData data)
         {
             return _procedures.Add(data);
         }
 
-        public BlogPostData Edit(IBlogPostData data)
+        public IBlogPostData Edit(IBlogPostData data)
         {
             return _procedures.Edit(data);
         }

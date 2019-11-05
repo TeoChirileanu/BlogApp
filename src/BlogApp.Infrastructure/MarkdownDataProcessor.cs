@@ -9,7 +9,7 @@ namespace BlogApp.Infrastructure
         private readonly MarkdownPipeline _pipeline =
             new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
-        public BlogPostData ProcessData(IBlogPostData data)
+        public IBlogPostData ProcessData(IBlogPostData data)
         {
             var title = data.Title;
             var content = data.Content;

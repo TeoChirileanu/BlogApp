@@ -19,7 +19,7 @@ namespace BlogApp.UseCases
             _dataDisplayer = dataDisplayer;
         }
 
-        public BlogPostData GetData()
+        public IBlogPostData GetData()
         {
             return _dataGetter.GetData();
         }

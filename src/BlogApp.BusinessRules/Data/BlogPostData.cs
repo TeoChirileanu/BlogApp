@@ -11,10 +11,6 @@
         public string Title { get; }
         public string Content { get; }
 
-        public override string ToString()
-        {
-            return $"{Title}\n{Content}";
-        }
 
         private bool Equals(IBlogPostData other)
         {

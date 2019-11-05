@@ -10,7 +10,7 @@ namespace BlogApp.BusinessRulesTests
 {
     public class BlogPostEntityBehaviorTests
     {
-        private readonly BlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
+        private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
         private readonly IBlogPostProcedures _procedures = Substitute.For<IBlogPostProcedures>();
 
         [SetUp]

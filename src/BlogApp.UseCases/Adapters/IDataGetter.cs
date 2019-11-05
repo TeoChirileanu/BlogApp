@@ -4,6 +4,6 @@ namespace BlogApp.UseCases.Adapters
 {
     public interface IDataGetter
     {
-        BlogPostData GetData();
+        IBlogPostData GetData();
     }
 }

@@ -22,7 +22,7 @@ namespace BlogApp.Infrastructure
         public void PersistData(IBlogPostData data)
         {
             var file = Directory.GetFileReference(data.Title);
-            var dataAsString = data.ToString();
+            var dataAsString = data.AsString();
             file.UploadText(dataAsString);
         }
 

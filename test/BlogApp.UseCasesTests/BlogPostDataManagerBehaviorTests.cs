@@ -10,7 +10,7 @@ namespace BlogApp.UseCasesTests
 {
     public class BlogPostDataManagerBehaviorTests
     {
-        private readonly BlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
+        private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
         private IDataDisplayer _dataDisplayer;
         private IDataGetter _dataGetter;
         private IDataPersister _dataPersister;

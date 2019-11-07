@@ -17,10 +17,10 @@ namespace BlogApp.InfrastructureTests
         {
             // Arrange
             var blogPostData = new Collection<IBlogPostData>();
-            IDataPersister dataPersister = new InMemoryDataPersister(blogPostData);
+            IPostPersister postPersister = new InMemoryPostPersister(blogPostData);
 
             // Act
-            dataPersister.PersistData(_data);
+            postPersister.PersistPost(_data);
 
             // Assert
             Check.That(blogPostData.Count).IsNotZero();
@@ -32,10 +32,10 @@ namespace BlogApp.InfrastructureTests
         {
             // Arrange
             var blogPostData = new Collection<IBlogPostData> {_data};
-            IDataPersister dataPersister = new InMemoryDataPersister(blogPostData);
+            IPostPersister postPersister = new InMemoryPostPersister(blogPostData);
 
             // Act
-            var persistedData = dataPersister.GetData(_data.Title);
+            var persistedData = postPersister.GetPost(_data.Title);
 
             // Assert
             Check.That(persistedData).IsEqualTo(_data);

@@ -12,32 +12,33 @@ namespace BlogApp.InfrastructureTests
         private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
 
         [Test]
-        public void ShouldPersistData()
+        public void ShouldPersistAndReadPost()
         {
             // Arrange
-            IDataPersister dataPersister = new AzureFilesDataPersister();
+            IPostPersister persister = new AzureFilesPostPersister();
 
             // Act
-            dataPersister.PersistData(_data);
+            persister.PersistPost(_data);
 
             // Assert
-            var data = dataPersister.GetData(_data.Title);
-            Check.That(data).IsNotNull();
+            var data = persister.GetPost(_data.Title);
             Check.That(data).IsEqualTo(_data);
         }
 
         [Test]
-        public void ShouldReadPersistedData()
+        public void ShouldReadAllPosts()
         {
             // Arrange
-            IDataPersister dataPersister = new AzureFilesDataPersister();
+            IPostPersister persister = new AzureFilesPostPersister();
 
             // Act
-            var data = dataPersister.GetData(_data.Title);
+            var posts = persister.GetPosts();
 
             // Assert
-            Check.That(data).IsNotNull();
-            Check.That(data).IsEqualTo(_data);
+            Check.That(posts).Not.IsEmpty();
+            Check.That(posts).ContainsOnlyElementsThatMatch(post =>
+                !string.IsNullOrWhiteSpace(post.Title) &&
+                !string.IsNullOrWhiteSpace(post.Content));
         }
     }
 }

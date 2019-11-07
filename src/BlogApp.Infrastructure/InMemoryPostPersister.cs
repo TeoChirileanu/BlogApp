@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BlogApp.BusinessRules.Data;
 using BlogApp.UseCases.Adapters;
 
@@ -14,19 +15,27 @@ namespace BlogApp.Infrastructure
             _blogPostData = blogPostData ?? new List<IBlogPostData>();
         }
 
-        public void PersistPost(IBlogPostData data)
+        public async Task PersistPost(IBlogPostData post)
         {
-            _blogPostData.Add(data);
+            _blogPostData.Add(post);
+            await Task.CompletedTask;
         }
 
-        public IBlogPostData GetPost(string title)
+        public Task<IBlogPostData> GetPost(string title)
         {
-            return _blogPostData.FirstOrDefault(data => data.Title == title);
+            var post = _blogPostData.FirstOrDefault(data => data.Title == title);
+            return Task.FromResult(post);
         }
 
-        public IList<IBlogPostData> GetPosts()
+        public Task<IList<IBlogPostData>> GetPosts()
         {
-            return _blogPostData;
+            return Task.FromResult(_blogPostData);
+        }
+
+        public async Task DeletePost(IBlogPostData post)
+        {
+            _blogPostData.Remove(post);
+            await Task.CompletedTask;
         }
     }
 }

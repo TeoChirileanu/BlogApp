@@ -1,0 +1,48 @@
+﻿@page "/posts"
+@layout MainLayout
+@inject IPostPersister Persister
+@inject ILogger<IBlogPostData> Logger
+
+<div>
+    @if (Posts != null)
+    {
+        foreach (var post in Posts)
+        {
+            <div>
+                <a href="posts/@post.Title">View</a>
+                <h1>@post.Title</h1>
+                <p>@post.Content</p>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Loading posts...</p>
+    }
+</div>
+
+<div>
+    @if (LoadFailed)
+    {
+        <p>An error occured :( Check the developer console for more details</p>
+    }
+</div>
+
+
+@code {
+    IList<IBlogPostData> Posts;
+    bool LoadFailed;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Posts = await Persister.GetPosts();
+        }
+        catch (Exception e)
+        {
+            LoadFailed = true;
+            Logger.LogCritical(e, "Failed to get posts");
+        }
+    }
+}

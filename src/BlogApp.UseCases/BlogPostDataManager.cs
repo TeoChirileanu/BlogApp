@@ -7,8 +7,8 @@ namespace BlogApp.UseCases
     {
         private readonly IDataDisplayer _dataDisplayer;
         private readonly IDataGetter _dataGetter;
-        private readonly IPostPersister _postPersister;
         private readonly IDataProcessor _dataProcessor;
+        private readonly IPostPersister _postPersister;
 
         public BlogPostDataManager(IDataGetter dataGetter, IDataProcessor dataProcessor, IPostPersister postPersister,
             IDataDisplayer dataDisplayer)

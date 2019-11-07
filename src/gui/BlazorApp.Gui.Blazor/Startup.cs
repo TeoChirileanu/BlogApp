@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BlazorApp.Gui.Blazor.Data;
+using BlogApp.Infrastructure;
+using BlogApp.UseCases.Adapters;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BlazorApp.Gui.Blazor.Data;
+using Microsoft.Extensions.Logging;
 
 namespace BlazorApp.Gui.Blazor
 {
@@ -27,8 +24,10 @@ namespace BlazorApp.Gui.Blazor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddLogging(builder => { builder.AddConsole(); });
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<IPostPersister, AzureFilesPostPersister>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

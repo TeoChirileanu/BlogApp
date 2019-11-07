@@ -10,6 +10,7 @@
 
         public const string ConnectionString =
             "DefaultEndpointsProtocol=https;AccountName=blazorblog;AccountKey=JD0l2kynOVk1SlpzvUFE1KaYt7mQOUNiXLaXwDAN3GbA2MkE16szkXM+hINjXm266ucGFi4XwJDKnHM0A0jXSw==;EndpointSuffix=core.windows.net";
+
         public const string Container = "articles";
 
         public static readonly string MarkdownContent = $"*{Content}*";

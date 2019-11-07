@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BlogApp.BusinessRules.Data;
 using BlogApp.Common;
 using BlogApp.Infrastructure;
@@ -12,27 +13,30 @@ namespace BlogApp.InfrastructureTests
         private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
 
         [Test]
-        public void ShouldPersistAndReadPost()
+        public async Task ShouldPersistAndReadPost()
         {
             // Arrange
             IPostPersister persister = new AzureFilesPostPersister();
 
             // Act
-            persister.PersistPost(_data);
+            await persister.PersistPost(_data);
 
             // Assert
-            var data = persister.GetPost(_data.Title);
+            var data = await persister.GetPost(_data.Title);
             Check.That(data).IsEqualTo(_data);
+
+            // Cleanup
+            await persister.DeletePost(_data);
         }
 
         [Test]
-        public void ShouldReadAllPosts()
+        public async Task ShouldReadAllPosts()
         {
             // Arrange
             IPostPersister persister = new AzureFilesPostPersister();
 
             // Act
-            var posts = persister.GetPosts();
+            var posts = await persister.GetPosts();
 
             // Assert
             Check.That(posts).Not.IsEmpty();

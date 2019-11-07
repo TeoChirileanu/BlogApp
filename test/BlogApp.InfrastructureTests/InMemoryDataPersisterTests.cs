@@ -1,4 +1,6 @@
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using BlogApp.BusinessRules.Data;
 using BlogApp.Common;
 using BlogApp.Infrastructure;
@@ -10,35 +12,66 @@ namespace BlogApp.InfrastructureTests
 {
     public class InMemoryDataPersisterTests
     {
-        private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
+        private readonly IBlogPostData _post = new BlogPostData(Constants.Title, Constants.Content);
 
         [Test]
-        public void ShouldPersistData()
+        public async Task ShouldPersistPost()
         {
             // Arrange
-            var blogPostData = new Collection<IBlogPostData>();
-            IPostPersister postPersister = new InMemoryPostPersister(blogPostData);
+            var posts = new List<IBlogPostData>();
+            IPostPersister postPersister = new InMemoryPostPersister(posts);
 
             // Act
-            postPersister.PersistPost(_data);
+            await postPersister.PersistPost(_post);
 
             // Assert
-            Check.That(blogPostData.Count).IsNotZero();
-            Check.That(blogPostData).ContainsExactly(_data);
+            Check.That(posts.Count).IsNotZero();
+            Check.That(posts).ContainsExactly(_post);
         }
 
         [Test]
-        public void ShouldGetData()
+        public async Task ShouldGetPost()
         {
             // Arrange
-            var blogPostData = new Collection<IBlogPostData> {_data};
-            IPostPersister postPersister = new InMemoryPostPersister(blogPostData);
+            var posts = new List<IBlogPostData> {_post};
+            IPostPersister postPersister = new InMemoryPostPersister(posts);
 
             // Act
-            var persistedData = postPersister.GetPost(_data.Title);
+            var post = await postPersister.GetPost(_post.Title);
 
             // Assert
-            Check.That(persistedData).IsEqualTo(_data);
+            Check.That(post).IsEqualTo(_post);
+        }
+
+        [Test]
+        public async Task ShouldGetAllPosts()
+        {
+            // Arrange
+            const int howMany = 3;
+            var somePosts = Enumerable.Range(0, howMany).Select(_ => _post);
+            var posts = new List<IBlogPostData>(somePosts);
+            IPostPersister postPersister = new InMemoryPostPersister(posts);
+
+            // Act
+            var allPosts = await postPersister.GetPosts();
+
+            // Assert
+            Check.That(allPosts).Not.IsEmpty();
+            Check.That(allPosts.Count).IsEqualTo(howMany);
+        }
+
+        [Test]
+        public async Task ShouldDeletePost()
+        {
+            // Arrange
+            var posts = new List<IBlogPostData> {_post};
+            IPostPersister postPersister = new InMemoryPostPersister(posts);
+
+            // Act
+            await postPersister.DeletePost(_post);
+
+            // Assert
+            Check.That(posts).IsEmpty();
         }
     }
 }

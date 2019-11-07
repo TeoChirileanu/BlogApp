@@ -1,0 +1,46 @@
+﻿@page "/posts/{title}"
+@layout MainLayout
+@inject IPostPersister Persister
+@inject ILogger<IBlogPostData> Logger
+
+<div>
+    @if (Post != null)
+    {
+        <div>
+            <h1>@Post.Title</h1>
+            <p>@Post.Content</p>
+        </div>
+    }
+    else
+    {
+        <p>Loading post...</p>
+    }
+</div>
+
+<div>
+    @if (LoadFailed)
+    {
+        <p>An error occured :( Check the developer console for more details</p>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+    bool LoadFailed;
+    IBlogPostData Post;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Post = await Persister.GetPost(Title);
+        }
+        catch (Exception e)
+        {
+            LoadFailed = true;
+            Logger.LogCritical(e, "Failed to get post");
+        }
+    }
+
+}

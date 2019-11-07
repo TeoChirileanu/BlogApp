@@ -13,8 +13,8 @@ namespace BlogApp.UseCasesTests
         private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
         private IDataDisplayer _dataDisplayer;
         private IDataGetter _dataGetter;
-        private IPostPersister _postPersister;
         private IDataProcessor _dataProcessor;
+        private IPostPersister _postPersister;
 
         [SetUp]
         public void Setup()

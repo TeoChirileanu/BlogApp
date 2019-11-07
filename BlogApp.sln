@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Common", "src\BlogA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gui", "gui", "{BC9988D2-A296-48B0-B403-230F9BC7F723}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp.Gui.Blazor", "src\gui\BlazorApp.Gui.Blazor\BlazorApp.Gui.Blazor.csproj", "{CA528F0C-9ACC-4511-B9D8-B1CB12506D03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp.Gui.Blazor", "src\gui\BlazorApp.Gui.Blazor\BlazorApp.Gui.Blazor.csproj", "{CA528F0C-9ACC-4511-B9D8-B1CB12506D03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

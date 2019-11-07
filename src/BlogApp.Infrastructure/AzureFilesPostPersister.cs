@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using BlogApp.BusinessRules.Data;
 using BlogApp.Common;
@@ -18,36 +19,58 @@ namespace BlogApp.Infrastructure
             _containerClient = serviceClient.GetBlobContainerClient(Constants.Container);
         }
 
-        public void PersistPost(IBlogPostData data)
+        public async Task PersistPost(IBlogPostData post)
         {
-            //var file = _containerClient.GetFileReference(data.Title);
-            //file.UploadText(data.Content);
+            var title = post.Title;
+            var content = post.Content;
+            await SavePost(title, content);
         }
 
-        public IBlogPostData GetPost(string title)
+        public async Task<IBlogPostData> GetPost(string title)
         {
-            //var file = _containerClient.GetFileReference(title);
-            //var content = file.DownloadText();
-            //var result = new BlogPostData(title, content);
-            //return result;
-            return null;
+            var content = await GetContent(title);
+            var post = new BlogPostData(title, content);
+            return post;
         }
 
-        public IList<IBlogPostData> GetPosts()
+        public async Task<IList<IBlogPostData>> GetPosts()
         {
             IList<IBlogPostData> posts = new List<IBlogPostData>();
-            foreach (var blob in _containerClient.GetBlobs())
+            await foreach (var blob in _containerClient.GetBlobsAsync())
             {
                 var title = blob.Name;
-                var blobClient = _containerClient.GetBlobClient(title);
-                var stream = new MemoryStream();
-                blobClient.DownloadTo(stream);
-                var content = Encoding.ASCII.GetString(stream.ToArray());
+                var content = await GetContent(title);
                 var post = new BlogPostData(title, content);
                 posts.Add(post);
             }
 
             return posts;
+        }
+
+        public async Task DeletePost(IBlogPostData post)
+        {
+            var title = post.Title;
+            var blobClient = _containerClient.GetBlobClient(title);
+            await blobClient.DeleteIfExistsAsync();
+        }
+
+        private async Task<string> GetContent(string title)
+        {
+            var blobClient = _containerClient.GetBlobClient(title);
+            await using var stream = new MemoryStream();
+            await blobClient.DownloadToAsync(stream);
+            var content = Encoding.ASCII.GetString(stream.ToArray());
+            return content;
+        }
+
+        private async Task SavePost(string title, string content)
+        {
+            var blobClient = _containerClient.GetBlobClient(title);
+            var temporaryFile = Path.GetRandomFileName();
+            // warning: does not work with memory stream
+            await File.WriteAllTextAsync(temporaryFile, content);
+            await using var stream = File.OpenRead(temporaryFile);
+            await blobClient.UploadAsync(stream);
         }
     }
 }

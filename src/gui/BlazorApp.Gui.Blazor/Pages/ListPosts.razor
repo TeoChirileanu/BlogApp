@@ -25,6 +25,7 @@
     @if (LoadFailed)
     {
         <p>An error occured :( Check the developer console for more details</p>
+        <a href="/">Go Home</a>
     }
 </div>
 
@@ -45,4 +46,5 @@
             Logger.LogCritical(e, "Failed to get posts");
         }
     }
+
 }

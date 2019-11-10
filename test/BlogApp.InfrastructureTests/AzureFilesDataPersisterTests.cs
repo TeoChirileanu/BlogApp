@@ -18,15 +18,20 @@ namespace BlogApp.InfrastructureTests
             // Arrange
             IPostPersister persister = new AzureFilesPostPersister();
 
-            // Act
-            await persister.PersistPost(_data);
+            try
+            {
+                // Act
+                await persister.PersistPost(_data);
 
-            // Assert
-            var data = await persister.GetPost(_data.Title);
-            Check.That(data).IsEqualTo(_data);
-
-            // Cleanup
-            await persister.DeletePost(_data);
+                // Assert
+                var data = await persister.GetPost(_data.Title);
+                Check.That(data).IsEqualTo(_data);
+            }
+            finally // sort of local TearDown
+            {
+                // Cleanup
+                await persister.DeletePost(_data);
+            }
         }
 
         [Test]

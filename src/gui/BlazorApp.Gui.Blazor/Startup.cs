@@ -23,7 +23,7 @@ namespace BlazorApp.Gui.Blazor
             services.AddRazorPages();
             services.AddLogging(builder => { builder.AddConsole(); });
             services.AddServerSideBlazor();
-            services.AddSingleton<IPostPersister, AzureFilesPostPersister>();
+            services.AddSingleton<IPostRepository, AzurePostRepository>();
             services.AddSingleton<IDataConvertor, MarkdownDataConvertor>();
         }
 

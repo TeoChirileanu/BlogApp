@@ -6,16 +6,16 @@ using BlogApp.UseCases.Adapters;
 
 namespace BlogApp.Infrastructure
 {
-    public class InMemoryPostPersister : IPostPersister
+    public class InMemoryPostRepository : IPostRepository
     {
         private readonly IList<IBlogPostData> _blogPostData;
 
-        public InMemoryPostPersister(IList<IBlogPostData> blogPostData = null)
+        public InMemoryPostRepository(IList<IBlogPostData> blogPostData = null)
         {
             _blogPostData = blogPostData ?? new List<IBlogPostData>();
         }
 
-        public async Task PersistPost(IBlogPostData post)
+        public async Task SavePost(IBlogPostData post)
         {
             _blogPostData.Add(post);
             await Task.CompletedTask;

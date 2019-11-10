@@ -14,13 +14,13 @@ namespace BlogApp.UseCasesTests
         private IDataDisplayer _dataDisplayer;
         private IDataGetter _dataGetter;
         private IDataConvertor _dataConvertor;
-        private IPostPersister _postPersister;
+        private IPostRepository _postRepository;
 
         [SetUp]
         public void Setup()
         {
             _dataGetter = Substitute.For<IDataGetter>();
-            _postPersister = Substitute.For<IPostPersister>();
+            _postRepository = Substitute.For<IPostRepository>();
             _dataConvertor = Substitute.For<IDataConvertor>();
             _dataDisplayer = Substitute.For<IDataDisplayer>();
             _dataGetter.GetData().Returns(_data);
@@ -65,7 +65,7 @@ namespace BlogApp.UseCasesTests
             dataManager.PersistData(_data);
 
             // Assert
-            _postPersister.Received().PersistPost(_data);
+            _postRepository.Received().SavePost(_data);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace BlogApp.UseCasesTests
         private IBlogPostDataManager GetDataManager()
         {
             return new BlogPostDataManager(
-                _dataGetter, _dataConvertor, _postPersister, _dataDisplayer);
+                _dataGetter, _dataConvertor, _postRepository, _dataDisplayer);
         }
     }
 }

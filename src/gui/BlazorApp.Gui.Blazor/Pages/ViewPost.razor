@@ -2,7 +2,7 @@
 
 @layout MainLayout
 
-@inject IPostPersister Persister
+@inject IPostRepository Repository
 @inject IDataConvertor Convertor
 @inject ILogger<IBlogPostData> Logger
 
@@ -38,7 +38,7 @@
     {
         try
         {
-            var post = await Persister.GetPost(Title);
+            var post = await Repository.GetPost(Title);
             Post = Convertor.ConvertData(post);
         }
         catch (Exception e)

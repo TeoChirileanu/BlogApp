@@ -4,9 +4,9 @@ using BlogApp.BusinessRules.Data;
 
 namespace BlogApp.UseCases.Adapters
 {
-    public interface IPostPersister
+    public interface IPostRepository
     {
-        Task PersistPost(IBlogPostData post);
+        Task SavePost(IBlogPostData post);
         Task<IBlogPostData> GetPost(string title);
         Task<IList<IBlogPostData>> GetPosts();
         Task DeletePost(IBlogPostData post);

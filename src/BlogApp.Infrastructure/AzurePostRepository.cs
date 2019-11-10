@@ -9,17 +9,17 @@ using BlogApp.UseCases.Adapters;
 
 namespace BlogApp.Infrastructure
 {
-    public class AzureFilesPostPersister : IPostPersister
+    public class AzurePostRepository : IPostRepository
     {
         private readonly BlobContainerClient _containerClient;
 
-        public AzureFilesPostPersister()
+        public AzurePostRepository()
         {
             var serviceClient = new BlobServiceClient(Constants.ConnectionString);
             _containerClient = serviceClient.GetBlobContainerClient(Constants.Container);
         }
 
-        public async Task PersistPost(IBlogPostData post)
+        public async Task SavePost(IBlogPostData post)
         {
             var title = post.Title;
             var content = post.Content;

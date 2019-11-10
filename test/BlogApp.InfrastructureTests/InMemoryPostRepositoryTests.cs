@@ -10,19 +10,19 @@ using NUnit.Framework;
 
 namespace BlogApp.InfrastructureTests
 {
-    public class InMemoryDataPersisterTests
+    public class InMemoryPostRepositoryTests
     {
         private readonly IBlogPostData _post = new BlogPostData(Constants.Title, Constants.Content);
 
         [Test]
-        public async Task ShouldPersistPost()
+        public async Task ShouldSavePost()
         {
             // Arrange
             var posts = new List<IBlogPostData>();
-            IPostPersister postPersister = new InMemoryPostPersister(posts);
+            IPostRepository postRepository = new InMemoryPostRepository(posts);
 
             // Act
-            await postPersister.PersistPost(_post);
+            await postRepository.SavePost(_post);
 
             // Assert
             Check.That(posts.Count).IsNotZero();
@@ -34,10 +34,10 @@ namespace BlogApp.InfrastructureTests
         {
             // Arrange
             var posts = new List<IBlogPostData> {_post};
-            IPostPersister postPersister = new InMemoryPostPersister(posts);
+            IPostRepository postRepository = new InMemoryPostRepository(posts);
 
             // Act
-            var post = await postPersister.GetPost(_post.Title);
+            var post = await postRepository.GetPost(_post.Title);
 
             // Assert
             Check.That(post).IsEqualTo(_post);
@@ -50,10 +50,10 @@ namespace BlogApp.InfrastructureTests
             const int howMany = 3;
             var somePosts = Enumerable.Range(0, howMany).Select(_ => _post);
             var posts = new List<IBlogPostData>(somePosts);
-            IPostPersister postPersister = new InMemoryPostPersister(posts);
+            IPostRepository postRepository = new InMemoryPostRepository(posts);
 
             // Act
-            var allPosts = await postPersister.GetPosts();
+            var allPosts = await postRepository.GetPosts();
 
             // Assert
             Check.That(allPosts).Not.IsEmpty();
@@ -65,10 +65,10 @@ namespace BlogApp.InfrastructureTests
         {
             // Arrange
             var posts = new List<IBlogPostData> {_post};
-            IPostPersister postPersister = new InMemoryPostPersister(posts);
+            IPostRepository postRepository = new InMemoryPostRepository(posts);
 
             // Act
-            await postPersister.DeletePost(_post);
+            await postRepository.DeletePost(_post);
 
             // Assert
             Check.That(posts).IsEmpty();

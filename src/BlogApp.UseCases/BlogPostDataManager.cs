@@ -8,14 +8,14 @@ namespace BlogApp.UseCases
         private readonly IDataDisplayer _dataDisplayer;
         private readonly IDataGetter _dataGetter;
         private readonly IDataConvertor _dataConvertor;
-        private readonly IPostPersister _postPersister;
+        private readonly IPostRepository _postRepository;
 
-        public BlogPostDataManager(IDataGetter dataGetter, IDataConvertor dataConvertor, IPostPersister postPersister,
+        public BlogPostDataManager(IDataGetter dataGetter, IDataConvertor dataConvertor, IPostRepository postRepository,
             IDataDisplayer dataDisplayer)
         {
             _dataGetter = dataGetter;
             _dataConvertor = dataConvertor;
-            _postPersister = postPersister;
+            _postRepository = postRepository;
             _dataDisplayer = dataDisplayer;
         }
 
@@ -31,7 +31,7 @@ namespace BlogApp.UseCases
 
         public void PersistData(IBlogPostData data)
         {
-            _postPersister.PersistPost(data);
+            _postRepository.SavePost(data);
         }
 
         public void DisplayData(IBlogPostData data)

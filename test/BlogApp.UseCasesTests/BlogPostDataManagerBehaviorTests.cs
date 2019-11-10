@@ -13,7 +13,7 @@ namespace BlogApp.UseCasesTests
         private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
         private IDataDisplayer _dataDisplayer;
         private IDataGetter _dataGetter;
-        private IDataProcessor _dataProcessor;
+        private IDataConvertor _dataConvertor;
         private IPostPersister _postPersister;
 
         [SetUp]
@@ -21,10 +21,10 @@ namespace BlogApp.UseCasesTests
         {
             _dataGetter = Substitute.For<IDataGetter>();
             _postPersister = Substitute.For<IPostPersister>();
-            _dataProcessor = Substitute.For<IDataProcessor>();
+            _dataConvertor = Substitute.For<IDataConvertor>();
             _dataDisplayer = Substitute.For<IDataDisplayer>();
             _dataGetter.GetData().Returns(_data);
-            _dataProcessor.ProcessData(_data).Returns(_data);
+            _dataConvertor.ConvertData(_data).Returns(_data);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace BlogApp.UseCasesTests
 
             // Assert
             Check.That(processedData).IsNotNull();
-            _dataProcessor.Received().ProcessData(_data);
+            _dataConvertor.Received().ConvertData(_data);
         }
 
         [Test]
@@ -84,7 +84,7 @@ namespace BlogApp.UseCasesTests
         private IBlogPostDataManager GetDataManager()
         {
             return new BlogPostDataManager(
-                _dataGetter, _dataProcessor, _postPersister, _dataDisplayer);
+                _dataGetter, _dataConvertor, _postPersister, _dataDisplayer);
         }
     }
 }

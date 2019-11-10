@@ -24,6 +24,7 @@ namespace BlazorApp.Gui.Blazor
             services.AddLogging(builder => { builder.AddConsole(); });
             services.AddServerSideBlazor();
             services.AddSingleton<IPostPersister, AzureFilesPostPersister>();
+            services.AddSingleton<IDataConvertor, MarkdownDataConvertor>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

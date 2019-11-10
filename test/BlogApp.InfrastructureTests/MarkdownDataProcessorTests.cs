@@ -13,11 +13,11 @@ namespace BlogApp.InfrastructureTests
         public void ShouldConvertMarkdownToHtml()
         {
             // Arrange
-            IDataProcessor dataProcessor = new MarkdownDataProcessor();
+            IDataConvertor dataConvertor = new MarkdownDataConvertor();
 
             // Act
             var originalData = new BlogPostData(Constants.Title, Constants.MarkdownContent);
-            var processedData = dataProcessor.ProcessData(originalData);
+            var processedData = dataConvertor.ConvertData(originalData);
 
             // Assert
             Check.That(processedData.Title).IsEqualTo(originalData.Title);

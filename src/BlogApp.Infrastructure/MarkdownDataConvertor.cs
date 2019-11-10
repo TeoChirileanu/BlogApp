@@ -4,18 +4,16 @@ using Markdig;
 
 namespace BlogApp.Infrastructure
 {
-    public class MarkdownDataProcessor : IDataProcessor
+    public class MarkdownDataConvertor : IDataConvertor
     {
         private readonly MarkdownPipeline _pipeline =
             new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
 
-        public IBlogPostData ProcessData(IBlogPostData data)
+        public IBlogPostData ConvertData(IBlogPostData data)
         {
             var title = data.Title;
             var content = data.Content;
-
             var contentAsHtml = Markdown.ToHtml(content, _pipeline);
-
             var result = new BlogPostData(title, contentAsHtml);
             return result;
         }

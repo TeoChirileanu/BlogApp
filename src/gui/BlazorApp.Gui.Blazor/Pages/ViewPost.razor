@@ -1,6 +1,9 @@
 ﻿@page "/posts/{title}"
+
 @layout MainLayout
+
 @inject IPostPersister Persister
+@inject IDataConvertor Convertor
 @inject ILogger<IBlogPostData> Logger
 
 <div>
@@ -8,7 +11,7 @@
     {
         <div>
             <h1>@Post.Title</h1>
-            <p>@Post.Content</p>
+            <p>@((MarkupString)Post.Content)</p>
         </div>
     }
     else
@@ -27,9 +30,7 @@
 
 @code {
 
-    [Parameter]
-    public string Title { get; set; }
-
+    [Parameter] public string Title { get; set; }
     bool LoadFailed;
     IBlogPostData Post;
 
@@ -37,7 +38,8 @@
     {
         try
         {
-            Post = await Persister.GetPost(Title);
+            var post = await Persister.GetPost(Title);
+            Post = Convertor.ConvertData(post);
         }
         catch (Exception e)
         {

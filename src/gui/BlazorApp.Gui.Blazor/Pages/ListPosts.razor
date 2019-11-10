@@ -1,6 +1,9 @@
 ﻿@page "/posts"
+
 @layout MainLayout
+
 @inject IPostPersister Persister
+@inject IDataConvertor Convertor
 @inject ILogger<IBlogPostData> Logger
 
 <div>
@@ -11,7 +14,7 @@
             <div>
                 <a href="posts/@post.Title">View</a>
                 <h1>@post.Title</h1>
-                <p>@post.Content</p>
+                <p>@((MarkupString)post.Content)</p>
             </div>
         }
     }
@@ -31,14 +34,15 @@
 
 
 @code {
-    IList<IBlogPostData> Posts;
+    IEnumerable<IBlogPostData> Posts;
     bool LoadFailed;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            Posts = await Persister.GetPosts();
+            var posts = await Persister.GetPosts();
+            Posts = posts.Select(Convertor.ConvertData);
         }
         catch (Exception e)
         {

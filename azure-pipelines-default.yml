@@ -6,6 +6,11 @@ pool:
 
 steps:
 - task: DotNetCoreCLI@2
+  displayName: 'Checking for new articles...'
+  inputs:
+    command: 'run'
+    workingDirectory: 'src\utils\BlogApp.Utils.NewArticleUploader'
+- task: DotNetCoreCLI@2
   displayName: 'Building...'
   inputs:
     command: 'build'
@@ -15,7 +20,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*.csproj'
-    arguments: '--collect "Code coverage"'
+    arguments: '--verbosity:quiet --collect "Code coverage"'
     workingDirectory: 'test'
 - task: DotNetCoreCLI@2
   displayName: 'Publishing...'

@@ -11,6 +11,12 @@ steps:
     command: 'build'
     arguments: '--verbosity:quiet'
 - task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/*.csproj'
+    arguments: '--collect "Code coverage"'
+    workingDirectory: 'test'
+- task: DotNetCoreCLI@2
   displayName: 'Publishing...'
   inputs:
     command: 'publish'

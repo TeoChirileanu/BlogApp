@@ -9,7 +9,7 @@ namespace BlogApp.Utils.NewArticleUploader
     public static class ArticleManager
     {
         private static readonly string ArticlesLocation =
-            Path.GetFullPath(@"..\..\..\..\..\..\articles");
+            Path.GetFullPath(@"..\..\..\articles");
         private static readonly BlobServiceClient ServiceClient =
             new BlobServiceClient(Constants.ConnectionString);
         private static readonly BlobContainerClient ContainerClient =

@@ -23,7 +23,7 @@ namespace BlogApp.Utils.NewArticleUploader
                 Console.WriteLine("No new article found");
                 return;
             }
-
+            Console.WriteLine($"New article found: {newArticle}");
             try
             {
                 Console.WriteLine($"Uploading {newArticle}...");

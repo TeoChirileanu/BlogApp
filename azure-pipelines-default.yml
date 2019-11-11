@@ -1,0 +1,31 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: UseDotNet@2
+  displayName: 'Using latest .NET Core SDK preview'
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.x'
+    includePreviewVersions: true
+- task: DotNetCoreCLI@2
+  displayName: 'Building...'
+  inputs:
+    command: 'build'
+    arguments: '--verbosity:quiet'
+- task: DotNetCoreCLI@2
+  displayName: 'Publishing...'
+  inputs:
+    command: 'publish'
+    arguments: '--output $(Build.ArtifactStagingDirectory) --verbosity:quiet'
+    publishWebProjects: true
+    zipAfterPublish: false
+- task: PublishBuildArtifacts@1
+  displayName: 'Copying artifacts...'
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'Binaries'
+    publishLocation: Container

@@ -7,7 +7,9 @@ namespace BlogApp.Infrastructure
     public class MarkdownDataConvertor : IDataConvertor
     {
         private readonly MarkdownPipeline _pipeline =
-            new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+            new MarkdownPipelineBuilder()
+                .UseAdvancedExtensions()
+                .Build();
 
         public IBlogPostData ConvertData(IBlogPostData data)
         {

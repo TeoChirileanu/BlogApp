@@ -26,7 +26,7 @@ steps:
   displayName: 'Publishing GUI...'
   inputs:
     command: 'publish'
-    arguments: '--output $(Build.ArtifactStagingDirectory) --verbosity:quiet'
+    arguments: '--verbosity:quiet'
     workingDirectory: 'src\gui\BlazorApp.Gui.Blazor'
     publishWebProjects: true
     zipAfterPublish: true

@@ -23,8 +23,16 @@ steps:
     command: 'run'
     workingDirectory: 'src\utils\BlogApp.Utils.NewArticleUploader'
 - task: DotNetCoreCLI@2
-  displayName: 'Publishing GUI...'
+  displayName: 'Preparing artifacts...'
   inputs:
     command: 'publish'
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
     publishWebProjects: true
     workingDirectory: 'src\gui\BlazorApp.Gui.Blazor'
+    zipAfterPublish: false
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing artifacts...'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Binaries'
+    publishLocation: 'Container'

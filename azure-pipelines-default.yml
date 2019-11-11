@@ -15,7 +15,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/*.csproj'
-    arguments: '--verbosity:quiet --collect "Code coverage"'
+    arguments: '--verbosity:quiet'
     workingDirectory: 'test'
 - task: DotNetCoreCLI@2
   displayName: 'Checking for new articles...'

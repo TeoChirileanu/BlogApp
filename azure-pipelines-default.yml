@@ -9,7 +9,7 @@ steps:
   displayName: 'Building...'
   inputs:
     command: 'build'
-    arguments: '--verbosity:quiet'
+    arguments: '--verbosity:quiet --maxcpucount'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'

@@ -30,9 +30,11 @@ steps:
     workingDirectory: 'src\gui\BlazorApp.Gui.Blazor'
     publishWebProjects: true
     zipAfterPublish: false
-- task: PublishBuildArtifacts@1
-  displayName: 'Copying GUI artifacts...'
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploying...'
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'Binaries'
-    publishLocation: Container
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(6ed902db-83cb-4fc8-a49e-3e8b6822937d)'
+    appType: 'webApp'
+    WebAppName: 'blazorblog'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)'

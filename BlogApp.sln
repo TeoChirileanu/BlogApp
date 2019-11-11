@@ -29,7 +29,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{84EE4F4E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Utils.NewArticleUploader", "src\utils\BlogApp.Utils.NewArticleUploader\BlogApp.Utils.NewArticleUploader.csproj", "{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp.Utils.PlagiarismChecker", "src\utils\BlogApp.Utils.PlagiarismChecker\BlogApp.Utils.PlagiarismChecker.csproj", "{DE2E4142-4080-41AC-861A-091569F3A8BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Utils.PlagiarismChecker", "src\utils\BlogApp.Utils.PlagiarismChecker\BlogApp.Utils.PlagiarismChecker.csproj", "{DE2E4142-4080-41AC-861A-091569F3A8BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{0CD2DE17-BF83-4487-BB28-78DB60C7F334}"
+	ProjectSection(SolutionItems) = preProject
+		articles\lorem.txt = articles\lorem.txt
+		articles\title1.md = articles\title1.md
+		articles\title2.md = articles\title2.md
+		articles\title3.md = articles\title3.md
+		articles\title4.md = articles\title4.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

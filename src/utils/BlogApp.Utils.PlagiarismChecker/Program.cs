@@ -21,7 +21,7 @@ namespace BlogApp.Utils.PlagiarismChecker
                 // todo: take it from arguments
                 var file = $@"{ArticlesLocation}\lorem.txt";
                 var score = await PlagiarismScoreGetter.GetScore(file);
-                Console.WriteLine($"Plagiarism score: {score}");
+                Console.WriteLine($"Plagiarism score: {score}%");
             }
             catch (Exception e)
             {

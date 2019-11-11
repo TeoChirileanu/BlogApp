@@ -29,12 +29,4 @@ steps:
     arguments: '--output $(Build.ArtifactStagingDirectory) --verbosity:quiet'
     workingDirectory: 'src\gui\BlazorApp.Gui.Blazor'
     publishWebProjects: true
-    zipAfterPublish: false
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Deploying...'
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'Pay-As-You-Go(6ed902db-83cb-4fc8-a49e-3e8b6822937d)'
-    appType: 'webApp'
-    WebAppName: 'blazorblog'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true

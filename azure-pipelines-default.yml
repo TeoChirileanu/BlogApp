@@ -9,7 +9,7 @@ steps:
   displayName: 'Using latest .NET Core SDK preview'
   inputs:
     packageType: 'sdk'
-    version: '3.1.x'
+    version: '3.0.x'
     includePreviewVersions: true
 - task: DotNetCoreCLI@2
   displayName: 'Building...'

@@ -6,11 +6,6 @@ pool:
 
 steps:
 - task: DotNetCoreCLI@2
-  displayName: 'Checking for new articles...'
-  inputs:
-    command: 'run'
-    workingDirectory: 'src\utils\BlogApp.Utils.NewArticleUploader'
-- task: DotNetCoreCLI@2
   displayName: 'Building...'
   inputs:
     command: 'build'
@@ -23,14 +18,20 @@ steps:
     arguments: '--verbosity:quiet --collect "Code coverage"'
     workingDirectory: 'test'
 - task: DotNetCoreCLI@2
-  displayName: 'Publishing...'
+  displayName: 'Checking for new articles...'
+  inputs:
+    command: 'run'
+    workingDirectory: 'src\utils\BlogApp.Utils.NewArticleUploader'
+- task: DotNetCoreCLI@2
+  displayName: 'Publishing GUI...'
   inputs:
     command: 'publish'
     arguments: '--output $(Build.ArtifactStagingDirectory) --verbosity:quiet'
+    workingDirectory: 'src\gui\BlazorApp.Gui.Blazor'
     publishWebProjects: true
     zipAfterPublish: false
 - task: PublishBuildArtifacts@1
-  displayName: 'Copying artifacts...'
+  displayName: 'Copying GUI artifacts...'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'Binaries'

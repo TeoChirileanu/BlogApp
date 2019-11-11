@@ -5,12 +5,6 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: UseDotNet@2
-  displayName: 'Using latest .NET Core SDK preview'
-  inputs:
-    packageType: 'sdk'
-    version: '3.0.x'
-    includePreviewVersions: true
 - task: DotNetCoreCLI@2
   displayName: 'Building...'
   inputs:

@@ -23,6 +23,11 @@ steps:
     command: 'run'
     workingDirectory: 'src\utils\BlogApp.Utils.NewArticleUploader'
 - task: DotNetCoreCLI@2
+  displayName: 'Checking for plagiarism...'
+  inputs:
+    command: 'run'
+    workingDirectory: 'src\utils\BlogApp.Utils.PlagiarismChecker'
+- task: DotNetCoreCLI@2
   displayName: 'Preparing artifacts...'
   inputs:
     command: 'publish'

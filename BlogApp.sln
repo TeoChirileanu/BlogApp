@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{0C
 		articles\title4.md = articles\title4.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploaderAndChecker", "src\utils\UploaderAndChecker\UploaderAndChecker.csproj", "{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{DE2E4142-4080-41AC-861A-091569F3A8BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE2E4142-4080-41AC-861A-091569F3A8BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE2E4142-4080-41AC-861A-091569F3A8BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09} = {31D4B804-8972-43A8-A5CF-7D2601273889}
 		{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F} = {84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09}
 		{DE2E4142-4080-41AC-861A-091569F3A8BD} = {84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09}
+		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20} = {84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {74C2E2C1-044F-4159-848F-9992C8898FB0}

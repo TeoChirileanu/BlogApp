@@ -11,7 +11,7 @@
     {
         <div>
             <h1>@Post.Title</h1>
-            <p>@((MarkupString)Post.Content)</p>
+            <p>@(new MarkupString(Post.Content))</p>
         </div>
     }
     else

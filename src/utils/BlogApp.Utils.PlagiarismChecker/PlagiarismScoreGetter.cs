@@ -53,6 +53,7 @@ namespace BlogApp.Utils.PlagiarismChecker
                         Status = new Uri("https://webhook.site/f61daef1-faa0-48b9-8feb-29bcd2cd3b0d"),
                         NewResult = new Uri("https://webhook.site/f61daef1-faa0-48b9-8feb-29bcd2cd3b0d")
                     },
+                    Sandbox = true
                 }
             };
             return fileDocument;

@@ -5,9 +5,9 @@ namespace BlogApp.UseCases
 {
     public class BlogPostDataManager : IBlogPostDataManager
     {
+        private readonly IDataConvertor _dataConvertor;
         private readonly IDataDisplayer _dataDisplayer;
         private readonly IDataGetter _dataGetter;
-        private readonly IDataConvertor _dataConvertor;
         private readonly IPostRepository _postRepository;
 
         public BlogPostDataManager(IDataGetter dataGetter, IDataConvertor dataConvertor, IPostRepository postRepository,
@@ -26,7 +26,7 @@ namespace BlogApp.UseCases
 
         public object ProcessData(IBlogPostData data)
         {
-            return _dataConvertor.ConvertData(data);
+            return _dataConvertor.ConvertMarkdownToHtml(data);
         }
 
         public void PersistData(IBlogPostData data)

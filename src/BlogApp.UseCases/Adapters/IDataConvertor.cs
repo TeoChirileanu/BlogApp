@@ -4,6 +4,6 @@ namespace BlogApp.UseCases.Adapters
 {
     public interface IDataConvertor
     {
-        IBlogPostData ConvertData(IBlogPostData data);
+        IBlogPostData ConvertMarkdownToHtml(IBlogPostData data);
     }
 }

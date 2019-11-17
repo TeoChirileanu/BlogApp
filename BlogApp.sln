@@ -27,10 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp.Gui.Blazor", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utils", "utils", "{84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Utils.NewArticleUploader", "src\utils\BlogApp.Utils.NewArticleUploader\BlogApp.Utils.NewArticleUploader.csproj", "{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Utils.PlagiarismChecker", "src\utils\BlogApp.Utils.PlagiarismChecker\BlogApp.Utils.PlagiarismChecker.csproj", "{DE2E4142-4080-41AC-861A-091569F3A8BD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{0CD2DE17-BF83-4487-BB28-78DB60C7F334}"
 	ProjectSection(SolutionItems) = preProject
 		articles\lorem.txt = articles\lorem.txt
@@ -40,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{0C
 		articles\title4.md = articles\title4.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UploaderAndChecker", "src\utils\UploaderAndChecker\UploaderAndChecker.csproj", "{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp.Utils.UploaderAndChecker", "src\utils\BlogApp.Utils.UploaderAndChecker\BlogApp.Utils.UploaderAndChecker.csproj", "{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,14 +76,6 @@ Global
 		{CA528F0C-9ACC-4511-B9D8-B1CB12506D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA528F0C-9ACC-4511-B9D8-B1CB12506D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA528F0C-9ACC-4511-B9D8-B1CB12506D03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE2E4142-4080-41AC-861A-091569F3A8BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE2E4142-4080-41AC-861A-091569F3A8BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE2E4142-4080-41AC-861A-091569F3A8BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE2E4142-4080-41AC-861A-091569F3A8BD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,8 +95,6 @@ Global
 		{BC9988D2-A296-48B0-B403-230F9BC7F723} = {31D4B804-8972-43A8-A5CF-7D2601273889}
 		{CA528F0C-9ACC-4511-B9D8-B1CB12506D03} = {BC9988D2-A296-48B0-B403-230F9BC7F723}
 		{84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09} = {31D4B804-8972-43A8-A5CF-7D2601273889}
-		{3DDF1B80-BCA4-4A43-AADC-4C6A8047A37F} = {84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09}
-		{DE2E4142-4080-41AC-861A-091569F3A8BD} = {84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09}
 		{D1666A11-5750-47F2-8C3B-4FEA73D0EB20} = {84EE4F4E-3C24-4CB4-9B36-677EFC1E5A09}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

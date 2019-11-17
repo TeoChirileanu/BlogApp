@@ -42,7 +42,7 @@
         try
         {
             var posts = await Repository.GetPosts();
-            Posts = posts.Select(Convertor.ConvertData);
+            Posts = posts.Select(Convertor.ConvertMarkdownToHtml);
         }
         catch (Exception e)
         {

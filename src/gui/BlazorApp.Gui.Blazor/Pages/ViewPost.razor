@@ -39,7 +39,7 @@
         try
         {
             var post = await Repository.GetPost(Title);
-            Post = Convertor.ConvertData(post);
+            Post = Convertor.ConvertMarkdownToHtml(post);
         }
         catch (Exception e)
         {

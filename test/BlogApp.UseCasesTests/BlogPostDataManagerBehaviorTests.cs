@@ -11,9 +11,9 @@ namespace BlogApp.UseCasesTests
     public class BlogPostDataManagerBehaviorTests
     {
         private readonly IBlogPostData _data = new BlogPostData(Constants.Title, Constants.Content);
+        private IDataConvertor _dataConvertor;
         private IDataDisplayer _dataDisplayer;
         private IDataGetter _dataGetter;
-        private IDataConvertor _dataConvertor;
         private IPostRepository _postRepository;
 
         [SetUp]
@@ -24,7 +24,7 @@ namespace BlogApp.UseCasesTests
             _dataConvertor = Substitute.For<IDataConvertor>();
             _dataDisplayer = Substitute.For<IDataDisplayer>();
             _dataGetter.GetData().Returns(_data);
-            _dataConvertor.ConvertData(_data).Returns(_data);
+            _dataConvertor.ConvertMarkdownToHtml(_data).Returns(_data);
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace BlogApp.UseCasesTests
 
             // Assert
             Check.That(processedData).IsNotNull();
-            _dataConvertor.Received().ConvertData(_data);
+            _dataConvertor.Received().ConvertMarkdownToHtml(_data);
         }
 
         [Test]

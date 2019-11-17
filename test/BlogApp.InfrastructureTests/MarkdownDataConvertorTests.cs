@@ -17,7 +17,7 @@ namespace BlogApp.InfrastructureTests
 
             // Act
             var originalData = new BlogPostData(Constants.Title, Constants.MarkdownContent);
-            var processedData = dataConvertor.ConvertData(originalData);
+            var processedData = dataConvertor.ConvertMarkdownToHtml(originalData);
 
             // Assert
             Check.That(processedData.Title).IsEqualTo(originalData.Title);

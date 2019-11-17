@@ -1,31 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using Azure;
 using Azure.Storage.Blobs;
 using BlogApp.Common;
 
 namespace BlogApp.Infrastructure
 {
-    public class BlobRepository
+    public static class BlobRepository
     {
-        private readonly BlobContainerClient _containerClient;
+        private static readonly BlobServiceClient ServiceClient =
+            new BlobServiceClient(Constants.ConnectionString);
 
-        public BlobRepository()
-        {
-            var serviceClient = new BlobServiceClient(Constants.ConnectionString);
-            _containerClient = serviceClient.GetBlobContainerClient(Constants.Container);
-        }
+        private static readonly BlobContainerClient ContainerClient =
+            ServiceClient.GetBlobContainerClient(Constants.Container);
 
-        public async Task<string> GetBlobContent(string blobName)
+
+        public static string GetBlobContent(string blobName)
         {
-            var blobClient = _containerClient.GetBlobClient(blobName);
-            await using var memoryStream = new MemoryStream();
+            var blobClient = ContainerClient.GetBlobClient(blobName);
+            using var memoryStream = new MemoryStream();
             try
             {
-                await blobClient.DownloadToAsync(memoryStream);
+                blobClient.DownloadTo(memoryStream);
             }
             catch (RequestFailedException e) when (e.Status is 404)
             {
@@ -37,33 +36,43 @@ namespace BlogApp.Infrastructure
             return content;
         }
 
-        public async IAsyncEnumerable<(string blobName, string blobContent)> GetAllBlobs()
+        public static (string blobName, string blobContent)[] GetAllBlobs()
         {
-            await foreach (var blob in _containerClient.GetBlobsAsync())
+            var list = new List<(string blobName, string blobContent)>();
+            foreach (var blob in ContainerClient.GetBlobs())
             {
                 var blobName = blob.Name;
-                var blobContent = await GetBlobContent(blobName);
-                yield return (blobName, blobContent);
+                var blobContent = GetBlobContent(blobName);
+                list.Add((blobName, blobContent));
             }
+
+            return list.ToArray();
         }
 
-        public async Task AddBlob(string name, string content)
+        public static void AddBlob(string name, string content)
         {
-            var blobClient = _containerClient.GetBlobClient(name);
+            var blobClient = ContainerClient.GetBlobClient(name);
 
             var temporaryFile = Path.GetRandomFileName();
             var bytes = Encoding.UTF8.GetBytes(content);
-            await File.WriteAllBytesAsync(temporaryFile, bytes);
+            File.WriteAllBytes(temporaryFile, bytes);
             var stream = File.OpenRead(temporaryFile);
-            await blobClient.UploadAsync(stream);
+            try
+            {
+                blobClient.Upload(stream);
+            }
+            catch (RequestFailedException e) when (e.ErrorCode is "BlobAlreadyExists")
+            {
+                Console.WriteLine($"Blob {name} already exists.");
+            }
             stream.Close();
             File.Delete(temporaryFile);
         }
 
-        public async Task RemoveBlob(string name)
+        public static void RemoveBlob(string name)
         {
-            var blobClient = _containerClient.GetBlobClient(name);
-            await blobClient.DeleteIfExistsAsync();
+            var blobClient = ContainerClient.GetBlobClient(name);
+            blobClient.DeleteIfExists();
         }
     }
 }

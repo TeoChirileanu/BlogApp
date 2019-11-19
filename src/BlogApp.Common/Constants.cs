@@ -15,6 +15,8 @@ namespace BlogApp.Common
             "DefaultEndpointsProtocol=https;AccountName=blazorblog;AccountKey=JD0l2kynOVk1SlpzvUFE1KaYt7mQOUNiXLaXwDAN3GbA2MkE16szkXM+hINjXm266ucGFi4XwJDKnHM0A0jXSw==;EndpointSuffix=core.windows.net";
 
         public const string Container = "articles";
+        public const string Share = Container;
+        public const string Directory = Share;
 
         public const string CopyLeaksEmail = "teodorchirileanu@gmail.com";
         public const string CopyLeaksKey = "59CFD57B-D2C7-4926-B826-0C7E4D8321EF";

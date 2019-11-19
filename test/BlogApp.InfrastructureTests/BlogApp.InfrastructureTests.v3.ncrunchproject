@@ -4,5 +4,10 @@
     <HiddenComponentWarnings>
       <Value>LongTestTimesWithoutParallelExecution</Value>
     </HiddenComponentWarnings>
+    <IgnoredTests>
+      <NamedTestSelector>
+        <TestName>BlogApp.InfrastructureTests.FilePostRepositoryTests.ShouldGetAllPosts</TestName>
+      </NamedTestSelector>
+    </IgnoredTests>
   </Settings>
 </ProjectConfiguration>

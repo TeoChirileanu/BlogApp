@@ -20,7 +20,7 @@ namespace BlogApp.Utils.UploaderAndChecker
         public static async Task UploadNewArticlesAndShowPlagiarismScore(string articlesLocation)
         {
             _articlesLocation = articlesLocation;
-            var newArticles = GetNewLocalArticles();
+            var newArticles = await GetNewLocalArticles();
             foreach (var newArticle in newArticles)
             {
                 var markdownArticle = Path.Join(_articlesLocation, newArticle);
@@ -29,11 +29,11 @@ namespace BlogApp.Utils.UploaderAndChecker
             }
         }
 
-        private static string[] GetNewLocalArticles()
+        private static async Task<string[]> GetNewLocalArticles()
         {
             var localArticles = GetLocalArticles();
             Console.WriteLine($"{localArticles.Length} local articles found");
-            var cloudArticles = GetCloudArticles();
+            var cloudArticles = await GetCloudArticles();
             Console.WriteLine($"{cloudArticles.Length} cloud articles found");
             var newLocalArticles = localArticles.Except(cloudArticles).ToArray();
             var articlesAsString = string.Join(',', newLocalArticles);
@@ -49,9 +49,9 @@ namespace BlogApp.Utils.UploaderAndChecker
             return localFiles;
         }
 
-        private static string[] GetCloudArticles()
+        private static async Task<string[]> GetCloudArticles()
         {
-            var cloudArticles = BlobRepository.GetAllBlobs();
+            var cloudArticles = await BlobService.GetAllBlobs();
             var cloudArticlesNames = cloudArticles.Select(blob => blob.blobName);
             return cloudArticlesNames.ToArray();
         }
@@ -61,7 +61,7 @@ namespace BlogApp.Utils.UploaderAndChecker
             var name = Path.GetFileNameWithoutExtension(newArticle);
             var content = await File.ReadAllTextAsync(newArticle);
             Console.WriteLine($"Uploading article {name}...");
-            BlobRepository.AddBlob(name, content);
+            await BlobService.AddBlob(name, content);
         }
 
         private static async Task ShowPlagiarismScore(string markdownArticle)

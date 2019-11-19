@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Azure;
+using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using BlogApp.Common;
 
 namespace BlogApp.Infrastructure
 {
-    public static class BlobRepository
+    public static class BlobService
     {
         private static readonly BlobServiceClient ServiceClient =
             new BlobServiceClient(Constants.ConnectionString);
@@ -18,61 +20,62 @@ namespace BlogApp.Infrastructure
             ServiceClient.GetBlobContainerClient(Constants.Container);
 
 
-        public static string GetBlobContent(string blobName)
+        public static async Task<(string name, string content)> GetBlob(string name)
         {
-            var blobClient = ContainerClient.GetBlobClient(blobName);
-            using var memoryStream = new MemoryStream();
+            var blobClient = ContainerClient.GetBlobClient(name);
+            await using var memoryStream = new MemoryStream();
             try
             {
-                blobClient.DownloadTo(memoryStream);
+                await blobClient.DownloadAsync(memoryStream);
             }
-            catch (RequestFailedException e) when (e.Status is 404)
+            catch (StorageRequestFailedException e)
+                when (e.ErrorCode == BlobErrorCode.BlobNotFound)
             {
-                Console.WriteLine($"Blob {blobName} does not exist.");
-                return null;
+                Console.WriteLine($"Blob {name} does not exist.");
+                return (null, null);
             }
 
             var content = Encoding.UTF8.GetString(memoryStream.ToArray());
-            return content;
+            return (name, content);
         }
 
-        public static (string blobName, string blobContent)[] GetAllBlobs()
+        public static async Task<IList<(string blobName, string blobContent)>> GetAllBlobs()
         {
             var list = new List<(string blobName, string blobContent)>();
-            foreach (var blob in ContainerClient.GetBlobs())
+            await foreach (var blob in ContainerClient.GetBlobsAsync())
             {
-                var blobName = blob.Name;
-                var blobContent = GetBlobContent(blobName);
+                var (blobName, blobContent) = await GetBlob(blob.Name);
                 list.Add((blobName, blobContent));
             }
 
             return list.ToArray();
         }
 
-        public static void AddBlob(string name, string content)
+        public static async Task AddBlob(string name, string content)
         {
             var blobClient = ContainerClient.GetBlobClient(name);
 
             var temporaryFile = Path.GetRandomFileName();
             var bytes = Encoding.UTF8.GetBytes(content);
-            File.WriteAllBytes(temporaryFile, bytes);
+            await File.WriteAllBytesAsync(temporaryFile, bytes);
             var stream = File.OpenRead(temporaryFile);
             try
             {
-                blobClient.Upload(stream);
+                await blobClient.UploadAsync(stream);
             }
-            catch (RequestFailedException e) when (e.ErrorCode is "BlobAlreadyExists")
+            catch (RequestFailedException e) when (e.Status is 409)
             {
                 Console.WriteLine($"Blob {name} already exists.");
             }
+
             stream.Close();
             File.Delete(temporaryFile);
         }
 
-        public static void RemoveBlob(string name)
+        public static async Task RemoveBlob(string name)
         {
             var blobClient = ContainerClient.GetBlobClient(name);
-            blobClient.DeleteIfExists();
+            await blobClient.DeleteIfExistsAsync();
         }
     }
 }

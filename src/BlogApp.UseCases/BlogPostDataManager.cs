@@ -31,7 +31,7 @@ namespace BlogApp.UseCases
 
         public void PersistData(IBlogPostData data)
         {
-            _postRepository.SavePost(data);
+            _postRepository.AddPost(data);
         }
 
         public void DisplayData(IBlogPostData data)

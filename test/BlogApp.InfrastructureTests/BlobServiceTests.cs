@@ -1,38 +1,37 @@
 using System.IO;
+using System.Threading.Tasks;
 using BlogApp.Infrastructure;
 using NFluent;
 using NUnit.Framework;
 
 namespace BlogApp.InfrastructureTests
 {
-    public class BlobRepositoryTests
+    public class BlobServiceTests
     {
         [Test]
-        public void ShouldGetBlob()
+        public async Task ShouldGetBlob()
         {
             // Arrange
             var randomString = Path.GetRandomFileName().Split('.')[0];
             var blobName = randomString;
             var blobContent = randomString;
-            BlobRepository.AddBlob(blobName, blobContent);
+            await BlobService.AddBlob(blobName, blobContent);
 
             // Act
-            var content = BlobRepository.GetBlobContent(blobName);
+            var content = BlobService.GetBlob(blobName);
 
             // Assert
             Check.That(content).IsNotNull();
 
             // Clean
-            BlobRepository.RemoveBlob(blobName);
+            await BlobService.RemoveBlob(blobName);
         }
 
         [Test]
-        public void ShouldGetAllBlobs()
+        public async Task ShouldGetAllBlobs()
         {
-            // Arrange
-
-            // Act
-            var blobs = BlobRepository.GetAllBlobs();
+            // Arrange && Act
+            var blobs = await BlobService.GetAllBlobs();
 
             // Assert
             Check.That(blobs).Not.IsEmpty();
@@ -45,36 +44,38 @@ namespace BlogApp.InfrastructureTests
         }
 
         [Test]
-        public void ShouldAddBlob()
+        public async Task ShouldAddBlob()
         {
             // Arrange
-            var name = "foo";
+            var originalName = "foo";
             var originalContent = "bar";
 
             // Act
-            BlobRepository.AddBlob(name, originalContent);
+            await BlobService.AddBlob(originalName, originalContent);
 
             // Assert
-            var newContent = BlobRepository.GetBlobContent(name);
+            var (newName, newContent) = await BlobService.GetBlob(originalName);
+            Check.That(newName).IsEqualTo(originalName);
             Check.That(newContent).IsEqualTo(originalContent);
 
             // Clean
-            BlobRepository.RemoveBlob(name);
+            await BlobService.RemoveBlob(originalName);
         }
 
         [Test]
-        public void ShouldRemoveBlob()
+        public async Task ShouldRemoveBlob()
         {
             // Arrange
             var name = "bar";
             var content = "foo";
-            BlobRepository.AddBlob(name, content);
+            await BlobService.AddBlob(name, content);
 
             // Act
-            BlobRepository.RemoveBlob(name);
+            await BlobService.RemoveBlob(name);
 
             // Assert
-            var newContent = BlobRepository.GetBlobContent(name);
+            var (newName, newContent) = await BlobService.GetBlob(name);
+            Check.That(newName).IsNullOrWhiteSpace();
             Check.That(newContent).IsNullOrWhiteSpace();
         }
     }

@@ -65,7 +65,7 @@ namespace BlogApp.UseCasesTests
             dataManager.PersistData(_data);
 
             // Assert
-            _postRepository.Received().SavePost(_data);
+            _postRepository.Received().AddPost(_data);
         }
 
         [Test]

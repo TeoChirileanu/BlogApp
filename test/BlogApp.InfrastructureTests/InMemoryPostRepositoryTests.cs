@@ -22,7 +22,7 @@ namespace BlogApp.InfrastructureTests
             IPostRepository postRepository = new InMemoryPostRepository(posts);
 
             // Act
-            await postRepository.SavePost(_post);
+            await postRepository.AddPost(_post);
 
             // Assert
             Check.That(posts.Count).IsNotZero();
@@ -68,7 +68,7 @@ namespace BlogApp.InfrastructureTests
             IPostRepository postRepository = new InMemoryPostRepository(posts);
 
             // Act
-            await postRepository.DeletePost(_post);
+            await postRepository.RemovePost(_post.Title);
 
             // Assert
             Check.That(posts).IsEmpty();

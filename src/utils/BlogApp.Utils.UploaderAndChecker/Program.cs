@@ -19,7 +19,6 @@ namespace BlogApp.Utils.UploaderAndChecker
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                Console.ReadKey(false);
             }
         }
     }

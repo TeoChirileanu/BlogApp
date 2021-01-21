@@ -6,9 +6,9 @@ namespace BlogApp.UseCases.Adapters
 {
     public interface IPostRepository
     {
-        Task SavePost(IBlogPostData post);
+        Task AddPost(IBlogPostData post);
         Task<IBlogPostData> GetPost(string title);
         Task<IList<IBlogPostData>> GetPosts();
-        Task DeletePost(IBlogPostData post);
+        Task RemovePost(string title);
     }
 }

@@ -15,7 +15,7 @@ namespace BlogApp.Infrastructure
             _blogPostData = blogPostData ?? new List<IBlogPostData>();
         }
 
-        public async Task SavePost(IBlogPostData post)
+        public async Task AddPost(IBlogPostData post)
         {
             _blogPostData.Add(post);
             await Task.CompletedTask;
@@ -32,8 +32,9 @@ namespace BlogApp.Infrastructure
             return Task.FromResult(_blogPostData);
         }
 
-        public async Task DeletePost(IBlogPostData post)
+        public async Task RemovePost(string title)
         {
+            var post = _blogPostData.SingleOrDefault(data => data.Title == title);
             _blogPostData.Remove(post);
             await Task.CompletedTask;
         }

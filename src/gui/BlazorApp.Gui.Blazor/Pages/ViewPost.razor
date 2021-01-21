@@ -11,7 +11,7 @@
     {
         <div>
             <h1>@Post.Title</h1>
-            <p>@((MarkupString)Post.Content)</p>
+            <p>@(new MarkupString(Post.Content))</p>
         </div>
     }
     else
@@ -39,7 +39,7 @@
         try
         {
             var post = await Repository.GetPost(Title);
-            Post = Convertor.ConvertData(post);
+            Post = Convertor.ConvertMarkdownToHtml(post);
         }
         catch (Exception e)
         {

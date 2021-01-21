@@ -18,15 +18,11 @@ steps:
     arguments: '--verbosity:quiet'
     workingDirectory: 'test'
 - task: DotNetCoreCLI@2
-  displayName: 'Checking for new articles...'
+  displayName: 'Uploading new articles and checking getting their plagiarism score...'
   inputs:
     command: 'run'
-    workingDirectory: 'src\utils\BlogApp.Utils.NewArticleUploader'
-- task: DotNetCoreCLI@2
-  displayName: 'Checking for plagiarism...'
-  inputs:
-    command: 'run'
-    workingDirectory: 'src\utils\BlogApp.Utils.PlagiarismChecker'
+    arguments: '--configuration Release'
+    workingDirectory: 'src\utils\BlogApp.Utils.UploaderAndChecker'
 - task: DotNetCoreCLI@2
   displayName: 'Preparing artifacts...'
   inputs:
